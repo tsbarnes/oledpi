@@ -3,6 +3,8 @@ from PIL import Image, ImageDraw, ImageFont
 
 
 class Display:
+    height: int = 32
+    width: int = 128
     spi: SPI.SpiDev = None
     oled: SSD1305.SSD1305_128_32 = None
 
@@ -14,7 +16,7 @@ class Display:
         self.oled.display()
 
     def draw_image(self, image: Image):
-        if image.size != (128, 32):
-            raise ValueError("Image must be 128x32")
+        if image.size != (self.width, self.height):
+            raise ValueError("Image must be {}x{}".format(self.width, self.height))
         self.oled.image(image)
         self.oled.display()
